@@ -1,6 +1,6 @@
 package main;
 
-
+import main.tree.*;
 /**
  * 
  * @author ckjulinek
@@ -15,9 +15,18 @@ public class Application {
 		// w pêtli pyta o imiê po czym mówi czy jest w root node czy nie.
 		// do czasu a¿ powiesz powiedzmy 'bye'
 		// ...
-		// albo coœ innego tego typu.
+		// albo coœ innego tego typu..
+		Node tree = new Node("John");
+		tree.addValue("test");
+		tree.addValue("aest");
+		
+
+		
 	}
 
+	
+	
+	
 	/**
 	 * Generuje drzewo binarne z wejœciow¹ list¹ imiom
 	 * 

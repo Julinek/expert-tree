@@ -13,24 +13,8 @@ public class Node {
 	Node parent;
 	Node left = null;
 	Node right = null;
+	
 
-	/*
-	 * public String getValue() { return value; }
-	 * 
-	 * public void setValue(String value) { this.value = value; }
-	 * 
-	 * public Node getParent() { return parent; }
-	 * 
-	 * public void setParent(Node parent) { this.parent = parent; }
-	 * 
-	 * public Node getLeft() { return left; }
-	 * 
-	 * public void setLeft(Node left) { this.left = left; }
-	 * 
-	 * public Node getRight() { return right; }
-	 * 
-	 * public void setRight(Node right) { this.right = right; }
-	 */
 
 	/**
 	 * Konstruktor
@@ -38,7 +22,7 @@ public class Node {
 	 * @param value wartoœæ wêz³a
 	 */
 	public Node(String value) {
-
+		if(root == null) root = this;
 		this.value = value;
 		System.out.println("Name of node: " + value);
 		// TODO
@@ -55,72 +39,29 @@ public class Node {
 	 */
 	public Node addValue(String value) {
 		
-	
-		
-		if(root == null)
-			root = new Node(value);
-			else {
-			Node actual = root;
-			Node parent = null;
-			while(actual != null) {
-			parent = actual;               
-			if(actual.value.compareTo(value) < 0)
-			{actual = actual.left;
-			}
-			else
-			{actual = actual.right;
-			}              
-			}
-			
-			if(parent.value.compareTo(value) < 0) {
-			parent.left = new Node(value);
-			parent.left.parent = parent;
-			}
-			else {
-			parent.right = new Node(value);
-			parent.right.parent = parent;
-			}
-			} 
-		
-		
-		/*if (root == null)
+		if(hasValue(value)) return getNode(value);
+	else if (root == null)
 			root = new Node(value);
 		else {
 			Node actual = root;
 			Node parent = null;
-			
 			while (actual != null) {
 				parent = actual;
-				if (actual.left == null || actual.right == null) {
-					actual = null;
-				} else {
+				if (actual.value.compareTo(value) < 0) {
 					actual = actual.left;
-				}
-
-			}*/
-			
-
-			/*while (actual != null) {
-				parent = actual;
-				if (actual.left == null || actual.right == null) {
-					actual = null;
 				} else {
-					actual = actual.left;
+					actual = actual.right;
 				}
+			}
 
-			}*/
-
-			/*if (parent.left == null) {
+			if (parent.value.compareTo(value) < 0) {
 				parent.left = new Node(value);
 				parent.left.parent = parent;
-				parent = parent.left;
-			} else if (parent.right == null) {
+			} else {
 				parent.right = new Node(value);
 				parent.right.parent = parent;
-				parent = parent.left;
-			}*/
-			// return actual;
-			// return null;
+			}
+		}
 
 		return parent;
 
@@ -132,24 +73,63 @@ public class Node {
 	 * Zwraca {@code Node} o wartoœci value, lub null jeœli w drzewie nie ma takiej
 	 * wartoœci.
 	 */
-	public Node getNode(String Value) {
+	public Node getNode(String value) {
+		Node actual = root;
+		if(!hasValue(value)) return null;
+		
+		while(actual.value != value && root != null)
+		{
+			if (actual.value.compareTo(value) < 0) {
+				actual = actual.left;
+			} else {
+				actual = actual.right;
+			}
+		}
+		
+		return actual;
 		// TODO
 
-		return null;
 	}
 
 	/**
 	 * @return true, dany obiekt node jest czêœci¹ drzewa, w przeciwnym razie false;
 	 */
 	public boolean hasNode(Node node) {
-		return false;
-	}
+		Node actual = root;
+		String value = node.value;
+		while((actual.value != value)  && (root != null))
+		{
+			if (actual.value.compareTo(value) < 0) {
+				if(actual.left == null) return false;
+				actual = actual.left;
+			} else {
+				if(actual.right == null) return false;
+				actual = actual.right;
+			}
+		}
+		
+		return true;
+		
+		}
 
 	/**
 	 * @return true, jeœli w drzewie wystêpuje dana wartoœæ, w przeciwnym razie
 	 *         false;
 	 */
 	public boolean hasValue(String value) {
-		return false;
+		Node actual = root;
+		
+		while((actual.value != value)  && (root != null))
+		{
+			if (actual.value.compareTo(value) < 0) {
+				if(actual.left == null) return false;
+				actual = actual.left;
+			} else {
+				if(actual.right == null) return false;
+				actual = actual.right;
+			}
+		}
+		
+		return true;
 	}
 }

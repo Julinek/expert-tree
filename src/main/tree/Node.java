@@ -8,10 +8,22 @@ package main.tree;
  */
 public class Node {
 
+	/**
+	 * wartoœæ wêz³a
+	 * 
+	 */
 	private String value = null;
-	private Node root = null;
-	private Node parent;
+	/**
+	 * rodzic wêz³a
+	 */
+	private Node parent = null;
+	/**
+	 * lewy syn wêz³a
+	 */
 	private Node left = null;
+	/**
+	 * prawy syn wêz³a
+	 */
 	private Node right = null;
 
 	public String getValue() {
@@ -20,14 +32,6 @@ public class Node {
 
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public Node getRoot() {
-		return root;
-	}
-
-	public void setRoot(Node root) {
-		this.root = root;
 	}
 
 	public Node getParent() {
@@ -54,18 +58,29 @@ public class Node {
 		this.right = right;
 	}
 
-	
+	/**
+	 * Zwraca korzeñ drzewa
+	 */
+	public Node treeRoot() {
+		Node actual = this;
+
+		while (actual.parent != null) {
+			actual = actual.parent;
+		}
+		return actual;
+	}
+
 	/**
 	 * Konstruktor
 	 * 
 	 * @param value wartoœæ wêz³a
 	 */
 	public Node(String value) {
-		if (root == null) {
-			root = this;
-		}
 		this.value = value;
-		// System.out.println("Name of node: " + value);
+		this.parent = null;
+		this.left = null;
+		this.right = null;
+
 		// TODO
 	}
 
@@ -82,10 +97,8 @@ public class Node {
 
 		if (hasValue(value))
 			return getNode(value);
-		else if (root == null)
-			root = new Node(value);
 		else {
-			Node actual = root;
+			Node actual = treeRoot();
 			Node parent = null;
 			while (actual != null) {
 				parent = actual;
@@ -116,11 +129,11 @@ public class Node {
 	 * wartoœci.
 	 */
 	public Node getNode(String value) {
-		Node actual = root;
+		Node actual = treeRoot();
 		if (!hasValue(value))
 			return null;
 
-		while (actual.value != value && root != null) {
+		while (actual.value != value) {
 			if (actual.value.compareTo(value) > 0) {
 				actual = actual.left;
 			} else {
@@ -132,17 +145,14 @@ public class Node {
 		// TODO
 
 	}
-	
-	
-	
 
 	/**
 	 * @return true, dany obiekt node jest czêœci¹ drzewa, w przeciwnym razie false;
 	 */
 	public boolean hasNode(Node node) {
-		Node actual = root;
+		Node actual = treeRoot();
 		String value = node.value;
-		while ((actual.value.compareTo(value) != 0) && (root != null)) {
+		while (!actual.value.equals(node.value)) {
 			if (actual.value.compareTo(value) > 0) {
 				if (actual.left == null)
 					return false;
@@ -163,9 +173,9 @@ public class Node {
 	 *         false;
 	 */
 	public boolean hasValue(String value) {
-		Node actual = root;
+		Node actual = treeRoot();
 
-		while ((actual.value.compareTo(value) != 0) && (root != null)) {
+		while (!actual.value.equals(value)) {
 			if (actual.value.compareTo(value) > 0) {
 				if (actual.left == null)
 					return false;
@@ -179,7 +189,26 @@ public class Node {
 
 		return true;
 	}
-	
 
+	/**
+	 * przechodzi przez cale drzewo
+	 */
+	private boolean goThroughTree() {
+		Node actual = treeRoot();
+		while (!actual.value.equals(value)) {
+			if (actual.value.compareTo(value) > 0) {
+				if (actual.left == null)
+					return false;
+				actual = actual.left;
+			} else {
+				if (actual.right == null)
+					return false;
+				actual = actual.right;
+			}
+		}
+		
+		return true;
+	}
+	
 	
 }

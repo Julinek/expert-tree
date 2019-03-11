@@ -36,6 +36,7 @@ public class Application {
 		} while (input.compareTo("Bye") != 0);
 
 		System.out.println("Bye!");
+
 		scaner.close();
 
 	}
@@ -67,9 +68,9 @@ public class Application {
 
 	void komunikatHasValue(String a) {
 
-		if(tree.hasValue(a))
+		if (tree.hasValue(a))
 			System.out.println("Tree includes this value!");
-		else 
+		else
 			System.out.println("Tree does not include this value!");
 	}
 

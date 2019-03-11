@@ -20,6 +20,24 @@ public class NodeTest {
 		assertTrue("Znajduje w³asn¹ wartoœæ", node.getRight().hasValue("C"));
 
 	}
+	
+	@Test
+	public void addValue_simple() {
+		Node node = new Node("A");
+		
+		assertEquals("Dodaje wêze³", node, node.addValue("A"));
+		assertEquals("Dodaje wêze³", node.getRight(), node.addValue("C"));
+		assertEquals("Dodaje wêze³", node.getRight(), node.addValue("C").addValue("C"));
+		}
+	
+	@Test
+	public void rootValue() {
+		Node node = new Node("A");
+		node.addValue("C");
+		assertEquals("Sprawdza wartoœæ roota", "A", node.treeRoot().getValue());
+		assertEquals("Sprawdza wartosc root dla syna", "A", node.getRight().treeRoot().getValue());
+	}
+	
 
 	@Test
 	public void hasNode_simple() {
